@@ -5,7 +5,11 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        "genshin-liyue": "url('./images/Background.jpg')" 
+      }
+    },
   },
   plugins: [
     require("daisyui"),
