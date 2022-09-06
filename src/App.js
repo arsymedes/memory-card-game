@@ -10,9 +10,9 @@ function App() {
   const [unpickedChar, setUnpickedChar] = useState([...characters]);
   const [cardChars, setCardChars] = useState(randomizeElement());
   const [score, setScore] = useState(0)
-  const [highScore, setHighScore] = useState(0)
+  const [highScore, setHighScore] = useState(localStorage.getItem("highScore") || 0)
   const [isLoaded, setIsLoaded] = useState(false)
-  const [gameEnd, setGameEnd] = useState(true)
+  const [gameEnd, setGameEnd] = useState(false)
 
   useEffect(() => {
     setIsLoaded(false)
@@ -20,6 +20,7 @@ function App() {
       setCardChars(randomizeElement())
       setIsLoaded(true)
     }, 100);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pickedChar]);
 
   function randomElement(list) {
@@ -53,9 +54,10 @@ function App() {
   function handleCardClick(char) {
     if (pickedChar.includes(char)) {
       setGameEnd(true)
+      localStorage.setItem("highScore", highScore)
     } else {
       setScore(score + 1)
-      if (score > highScore) {setHighScore(score)}
+      if (score + 1 > highScore) {setHighScore(score + 1)}
       setPickedChar([...pickedChar, char]);
       setUnpickedChar([...unpickedChar].filter((el) => el !== char));
     }
